@@ -28,4 +28,30 @@ public class Cuffie extends Prodotto {
     public void setWireless(boolean isWireless) {
         this.isWireless = isWireless;
     }
+
+    @Override
+    public String toString() {
+        String wirelessOutput;
+        if (this.isWireless()) {
+            wirelessOutput = "Wireless";
+        } else {
+            wirelessOutput = "Cablato";
+        }
+
+        return "\nNome prodotto: " + getNome() + "\nMarca: " + getMarca() + "\nPrezzo: " + getPrezzoIvato()
+                + "\nColore: "
+                + getColore()
+                + "\nConnettività: " + wirelessOutput;
+    }
+
+    @Override
+    public BigDecimal getPrezzoScontato() {
+        if (!isWireless) {
+            BigDecimal sconto = new BigDecimal("0.07");
+            return getPrezzoIvato().subtract(getPrezzoIvato().multiply(sconto));
+        } else {
+            // altrimenti uso il metoro della classe madre con "super"
+            return super.getPrezzoScontato();
+        }
+    }
 }

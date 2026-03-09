@@ -3,6 +3,7 @@ package org.lessons.java.shop;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;
+import java.util.logging.Handler;
 
 public class Prodotto {
 
@@ -30,6 +31,13 @@ public class Prodotto {
         } else {
             this.iva = iva;
         }
+    }
+
+    // metodo prezzo con sconto
+    public BigDecimal getPrezzoScontato() {
+        BigDecimal sconto = new BigDecimal("0.02");
+        BigDecimal prezzoScontato = getPrezzoIvato().subtract(getPrezzoIvato().multiply(sconto));
+        return prezzoScontato.setScale(2, RoundingMode.HALF_EVEN);
     }
 
     // GETTERS e SETTERS

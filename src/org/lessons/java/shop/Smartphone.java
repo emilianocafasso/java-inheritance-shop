@@ -29,4 +29,23 @@ public class Smartphone extends Prodotto {
         this.memoria = memoria;
     }
 
+    @Override
+    public String toString() {
+        return "\nNome prodotto: " + getNome() + "\nMarca: " + getMarca() + "\nPrezzo: " + getPrezzoIvato()
+                + "\nMemoria: "
+                + getMemoria() + "\nCodice IMEI: " + getImei();
+    }
+
+    // sconto 5% in caso memoria inferiore a 32GB
+    @Override
+    public BigDecimal getPrezzoScontato() {
+        BigDecimal sconto;
+        if (memoria < 32) {
+            sconto = new BigDecimal("0.05");
+            return getPrezzoIvato().subtract(getPrezzoIvato().multiply(sconto));
+        } else {
+            // altrimenti uso il metoro della classe madre con "super"
+            return super.getPrezzoScontato();
+        }
+    }
 }

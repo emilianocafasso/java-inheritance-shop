@@ -16,6 +16,7 @@ public class Televisore extends Prodotto {
         this.lunghezza = lunghezza;
         this.larghezza = larghezza;
         this.spessore = spessore;
+        this.isSmart = isSmart;
     }
 
     public float getLunghezza() {
@@ -48,5 +49,35 @@ public class Televisore extends Prodotto {
 
     public void setSmart(boolean isSmart) {
         this.isSmart = isSmart;
+    }
+
+    public String getDimensioni() {
+        return getLunghezza() + " x " + getLarghezza() + " x " + getSpessore();
+    }
+
+    @Override
+    public String toString() {
+
+        String smartOutput;
+        if (this.isSmart) {
+            smartOutput = "SI";
+        } else {
+            smartOutput = "NO";
+        }
+
+        return "\nNome prodotto: " + getNome() + "\nMarca: " + getMarca() + "\nPrezzo: " + getPrezzoIvato()
+                + "\nDimensioni: "
+                + getDimensioni() + " cm\nFunzionalità Smart: " + smartOutput;
+    }
+
+    @Override
+    public BigDecimal getPrezzoScontato() {
+        if (!isSmart) {
+            BigDecimal sconto = new BigDecimal("0.1");
+            return getPrezzoIvato().subtract(getPrezzoIvato().multiply(sconto));
+        } else {
+            // altrimenti uso il metoro della classe madre con "super"
+            return super.getPrezzoScontato();
+        }
     }
 }
